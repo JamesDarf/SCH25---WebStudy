@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  flask-app:
+    build:
+      context: ..
+      dockerfile: hotChoco_flask/Dockerfile
+    ports:
+      - "13687:5000"
+    working_dir: /app
+    volumes:
+      - ./src:/app
+    environment:
+      - .env
